@@ -1,6 +1,7 @@
 package ru.sevastopall.http.service;
 
 import ru.sevastopall.http.dao.FlightDao;
+import ru.sevastopall.http.dto.FlightDto;
 
 import java.util.List;
 
@@ -14,14 +15,15 @@ public class FlightService {
     public List<FlightDto> findAll() {
 
         return flightDao.findAll().stream()
-                .map(flight -> new FlightDto(
-                    flight.getId(),
+                .map(flight -> FlightDto.builder()
+                                        .id(flight.getId())
+                        .description(
                         """
                             %s - %s - %s
                         """.formatted(flight.getDeparture_airport_code(),
                                 flight.getArrival_airport_code(),
                                 flight.getStatus())
-                ))
+                ).build())
                 .collect(toList());
     }
 
