@@ -6,14 +6,13 @@
     <title>Title</title>
 </head>
 <body>
-<h2>Список перелетов</h2>
-<ul>
-    <c:forEach var="flight" items="${requestScope.flights}">
-      <li>
-        <a href ="${pageContext.request.contextPath}/tickets?flightId=${flight.id}">${flight.description}</a>
-      </li>
-    </c:forEach>
-</ul>
-
-</body>
+    <h2>Список перелетов</h2>
+        <ul>
+            <c:forEach var="flight" items="${requestScope.flights}">
+                <li>
+                    <a href="${pageContext.request.contextPath}/tickets?flightId=${flight.id}">${flight.description}</a>
+                </li>
+            </c:forEach>
+        </ul>
+    </body>
 </html>
