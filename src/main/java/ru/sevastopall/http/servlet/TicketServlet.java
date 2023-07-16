@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import ru.sevastopall.http.service.TicketService;
+import ru.sevastopall.http.util.JSPHelper;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,20 +19,9 @@ public class TicketServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long flightId = Long.valueOf(req.getParameter("flightId"));
-
-        resp.setContentType("text/html");
-        resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        try (PrintWriter writer = resp.getWriter()) {
-            writer.write("<h1>Купленные билеты</h1>");
-            writer.write("<ul>");
-            ticketService.findAllByFlight_id(flightId).forEach(ticketDto -> writer.write("" +
-                    """
-                            <li>
-                                %s
-                            </li>
-                            """.formatted(ticketDto.getSeatNo())));
-            writer.write("</ul>");
-        }
+        req.setAttribute("tickets", ticketService.findAllByFlight_id(flightId));
+        req.getRequestDispatcher(JSPHelper.getPath("tickets"))
+                .forward(req, resp);
 
     }
 }
