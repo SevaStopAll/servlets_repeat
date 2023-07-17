@@ -1,10 +1,12 @@
 package ru.sevastopall.http.servlet;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import ru.sevastopall.http.dto.CreateUserDto;
 import ru.sevastopall.http.entity.Gender;
 import ru.sevastopall.http.entity.Role;
@@ -15,6 +17,7 @@ import ru.sevastopall.http.util.JSPHelper;
 import java.io.IOException;
 import java.util.List;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024)
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
@@ -29,8 +32,11 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var image = req.getPart("image");
+
         var userDto = CreateUserDto.builder()
                 .name(req.getParameter("name"))
+                .image(req.getPart("image"))
                 .birthday(req.getParameter("birthday"))
                 .email(req.getParameter("email"))
                 .password(req.getParameter("password"))
