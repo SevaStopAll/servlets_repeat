@@ -13,12 +13,13 @@ import ru.sevastopall.http.entity.Role;
 import ru.sevastopall.http.exception.ValidationException;
 import ru.sevastopall.http.service.UserService;
 import ru.sevastopall.http.util.JSPHelper;
+import ru.sevastopall.http.util.UrlPath;
 
 import java.io.IOException;
 import java.util.List;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024)
-@WebServlet("/registration")
+@WebServlet(UrlPath.REGISTRATION)
 public class RegistrationServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
 
