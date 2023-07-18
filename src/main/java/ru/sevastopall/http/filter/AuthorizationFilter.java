@@ -15,7 +15,7 @@ import static ru.sevastopall.http.util.UrlPath.*;
 
 @WebFilter("/*")
 public class AuthorizationFilter implements Filter {
-    public static final Set<String> PUBLIC_PATH = Set.of(LOGIN, REGISTRATION, IMAGES);
+    public static final Set<String> PUBLIC_PATH = Set.of(LOGIN, REGISTRATION, IMAGES, LOCALE);
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
